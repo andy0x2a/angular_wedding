@@ -1,17 +1,12 @@
 <H2> Photos</H2>
-<script type="text/javascript">
-	
-	var folder = "/img/gallery/";
 
-$.ajax({
-    url : folder,
-    success: function (data) {
-        $(data).find("a").attr("href", function (i, val) {
-            if( val.match(/\.jpg|\.png|\.gif/) ) { 
-                $("body").append( "<img src='"+ folder + val +"'>" );
-                console.log(val);
-            } 
-        });
-    }
-});
-</script>
+<div ng-show="isFullscreen" class="big-image-container">
+
+ <h1 style="float: right; margin-left:-25px; cursor:pointer"> <i class="glyphicon glyphicon-remove" ng-click="hideImage()"> </i></h1>
+	<img src="{{currentPhoto.url}}" class="big-img"/>
+</div>
+
+        <div ng-repeat=" photo in photoTemplates.photos" class="col-sm-2" ng-hide="isFullscreen">
+        <span style="float: right; margin-left:-25px; cursor:pointer"> <i class="glyphicon glyphicon-fullscreen" ng-click="showImage(photo)" > </i></span>
+        <img src="{{ photo.thumb}}" style="float:right " />
+        </div>

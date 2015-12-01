@@ -15,3 +15,24 @@
 .my-simple-gallery figcaption {
     display: none;
 }
+
+
+.big-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /*overflow: hidden;*/
+    background-color: black;
+    z-index:5000;
+}
+
+.big-img {
+    height: 100%;
+    width: auto;
+    display:block;
+    margin:auto;
+    /*min-height: 100%;*/
+
+}
