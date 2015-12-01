@@ -23,6 +23,14 @@ body {
     opacity: 0.6;
 }
 
+.wedding-vertical-center {
+  min-height: 30%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 30vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
 .navbar-wedding-countdown {
     background-color: purple;
     color: white;
@@ -227,3 +235,43 @@ body {
     margin-right: 0;
     font-weight: bold;
 }*/
+
+.attendingRadio {
+
+}
+
+
+.rsvp-container {
+
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    /*background-color: salmon;*/
+    /*max-width: 400px;*/
+    width:85%;
+    max-width: 800px;
+    min-width: 200px;
+    opacity: .8;
+    /*height: 350px;*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*font-size: 18px;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    font-family: sans-serif;
+    font-weight: 100;
+    padding:10px;
+
+}
+.rsvp-select{
+    cursor:pointer; 
+    border-bottom:1px solid;
+    background-color: white;
+}
+.rsvp-select-element:hover {
+    background-color:#f2f2f2;
+}
+.memberEntry {
+    margin-top:12px;
+}

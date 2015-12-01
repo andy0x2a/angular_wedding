@@ -13,6 +13,11 @@ angular.module('myApp.photos', ['ngRoute', 'myApp.service'])
 
 $scope.init = function() {
 	$scope.getPhotos();
+
+	    $("#fullscreen, .big-img").on('keydown', function ($event) {
+	    var keyCode = (window.event ? keyEvent.keyCode : keyEvent.which);
+	    console.log(keyCode);
+	    });
 };
 
 $scope.getDocHeight = function() {
@@ -22,7 +27,11 @@ $scope.showImage = function(photo) {
 	$scope.currentPhoto = photo;
 	$scope.isFullscreen = true;
 
-} ;
+};
+
+$scope.keyPressed = function(event) {
+console.log(event.keyCode);
+}
 
 $scope.hideImage = function() {
 	console.log("hiding image");

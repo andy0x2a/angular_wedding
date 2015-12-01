@@ -1,20 +1,22 @@
-<H2> RSVP PAGE</H2>
 
-<form name="myForm">
+<div class="  ">
+
+            <div class=" rsvp-container  salmon ">
+<form name="myForm" >
 <div class="row">
     <div class="col-lg-10 col-md-10 col-md-offset-2 col-lg-offset-2">
         <label for="guestName"> Name: </label>
         <input type="text" id="guestName" name="guestName" ng-model="guest.name" ng-disabled="pruned.length ==1 " ng-change="updatePlusOne()">
         <div style=" border: 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
-            <div ng-repeat=" g in pruned" style="cursor:pointer; border-bottom:1px solid; " ng-click="guestListClicked(g)">
-                <span >{{g.name}}</span><br>
+            <div ng-repeat=" g in pruned"  class="rsvp-select" ng-click="guestListClicked(g)">
+                <span class="rsvp-select-element" >{{g.name}}</span><br>
             </div>
         </div>
         <div class="row">
 
             <div class="col-sm-4">
                 <label>
-                    <input type="radio" ng-model="guest.status" value="attending">
+                    <input type="radio" ng-model="guest.status" value="attending" class="attendingRadio">
                     Attending
                 </label>
                 <label>
@@ -27,9 +29,9 @@
         </div>
 
 
-        <div ng-repeat=" member in guest.members">
-            <label for="plusOne"> guest: </label>
-            <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name">
+        <div ng-repeat=" member in guest.members" class="memberEntry">
+            <label for="plusOne"> {{member.name}} </label>
+            <!-- <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name"> -->
             <!--<span name="plusOne" id="plusOne">{{plusOne}}</span>-->
     <div class="row">
         <div class="col-sm-4">
@@ -77,3 +79,6 @@
 
 
 </form>
+
+    </div>
+</div>

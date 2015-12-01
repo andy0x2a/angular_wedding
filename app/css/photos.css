@@ -36,3 +36,20 @@
     /*min-height: 100%;*/
 
 }
+.photo-thumb {
+	width:100%;
+	cursor:pointer;
+
+}
+
+.photo-thumb-container {
+	width:150px;
+	margin:15px;
+	display:inline-block
+}
+.photo-thumb-icon {
+	/*float: right;
+	 margin-left:-25px; */
+	cursor:pointer;
+
+}
