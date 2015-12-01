@@ -7,18 +7,18 @@
         <input type="text" id="guestName" name="guestName" ng-model="guest.name" ng-disabled="pruned.length ==1 " ng-change="updatePlusOne()">
         <div style=" border: 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
             <div ng-repeat=" g in pruned" style="cursor:pointer; border-bottom:1px solid; " ng-click="guestListClicked(g)">
-                <span >{{g.guestName}}</span><br>
+                <span >{{g.name}}</span><br>
             </div>
         </div>
         <div class="row">
 
             <div class="col-sm-4">
                 <label>
-                    <input type="radio" ng-model="guest.attending" ng-value="1">
+                    <input type="radio" ng-model="guest.status" value="attending">
                     Attending
                 </label>
                 <label>
-                    <input type="radio" ng-model="guest.attending" ng-value="0">
+                    <input type="radio" ng-model="guest.status" value="declined">
                     Not attending
                 </label>
                 <br>
@@ -35,11 +35,11 @@
         <div class="col-sm-4">
 
             <label>
-                <input type="radio" ng-model="member.attending" ng-value="1">
+                <input type="radio"  ng-model="member.status" value="attending">
                 Attending
             </label>
             <label>
-                <input type="radio" ng-model="member.attending" ng-value="0">
+                <input type="radio" ng-model="member.status" value="declined">
                 Not attending
             </label><br/>
 
@@ -59,10 +59,16 @@
         </d class="col-md-5" col-md-offset-2>
             <input type="submit" ng-click="submit()"/>
             <button  ng-click="guest = {}; pruned = []" > Clear </button>
+                <!-- <button  ng-click="upload()" >upload </button> -->
         </div>
     </div>
-    <modal-dialog show='modalShown' width='300px' height='30%'>
-        <p>{{modalMessage}}<p>
+    <modal-dialog show='modalShown' width='300px' height='30%' on-submit-function='submittoapi'>
+       <ul>
+           <div ng-repeat="guestMessage in modalGuestMessges">
+                <li><span>{{guestMessage}} </span></li>
+           </div>
+       </ul>
+        <!-- <p>{{modalMessage}}<p> -->
     </modal-dialog>
 
 

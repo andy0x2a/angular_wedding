@@ -1,0 +1,17 @@
+<H2> Photos</H2>
+<script type="text/javascript">
+	
+	var folder = "/img/gallery/";
+
+$.ajax({
+    url : folder,
+    success: function (data) {
+        $(data).find("a").attr("href", function (i, val) {
+            if( val.match(/\.jpg|\.png|\.gif/) ) { 
+                $("body").append( "<img src='"+ folder + val +"'>" );
+                console.log(val);
+            } 
+        });
+    }
+});
+</script>

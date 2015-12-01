@@ -7,7 +7,7 @@ angular.module('myApp.startsWith', [])
                 return input;
             };
             angular.forEach(input, function (guest) {
-                var lowerStr = (guest.guestName).toLowerCase();
+                var lowerStr = (guest.name).toLowerCase();
                 if (lowerStr.indexOf(expected.toLowerCase()) == 0) {
                     out.push(guest);
                 }

@@ -2,7 +2,12 @@
 <div class='ng-modal' ng-show='show'>
     <div class='ng-modal-overlay' ng-click='hideModal()'></div>
     <div class='ng-modal-dialog' ng-style='dialogStyle'>
+    TEST
         <div class='ng-modal-close' ng-click='hideModal()'>X</div>
         <div class='ng-modal-dialog-content' ng-transclude></div>
+        <div>
+	        <button ng-click="doSubmit()"> Submit </button>
+	        <button class="button" ng-click="hideModal()"> Cancel </button>
+        </div>
     </div>
 </div>

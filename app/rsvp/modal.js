@@ -4,7 +4,8 @@ angular.module('myApp.modal', [])
     return {
         restrict: 'E',
         scope: {
-            show: '='
+            show: '=',
+            onSubmitFunction:'=onSubmitFunction'
         },
         replace: true, // Replace with the template below
         transclude: true, // we want to insert custom content inside the directive
@@ -17,6 +18,14 @@ angular.module('myApp.modal', [])
             scope.hideModal = function() {
                 scope.show = false;
             };
+
+      scope.doSubmit = function() {
+            console.log('here');
+            if (typeof(scope.onSubmitFunction) !=="undefined") {
+            scope.onSubmitFunction();    
+            }
+            
+        }
         },
         templateUrl: 'rsvp/modalDialog.html'// See below
     };
