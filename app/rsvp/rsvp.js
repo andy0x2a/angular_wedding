@@ -41,7 +41,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         $scope.guestListClicked = function(guest) {
             var family = $scope.getFamilyForGuest(guest);
             $scope.setGuestDataForFamily(family);
-
+            $scope.guestFound = true;
         }
 
        
@@ -71,6 +71,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
             if($scope.pruned.length ===1) {
                 var found= $scope.pruned[0];
               result = $scope.getFamilyForGuest(found);
+              $scope.guestFound = true;
             }
             return result;
 
@@ -102,6 +103,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
             $scope.guest = {};
             $scope.guest.name = name;
             $scope.guest.hasPlusOne=false;
+          
         }
 $scope.submit = function() {
 
@@ -137,7 +139,29 @@ $scope.submittoapi = function() {
 };
         window.scrollTo(0,0);
 
+$scope.isValid = function(guest) {
 
+    if (typeof(guest) ==="undefined") {
+        return false;
+    }
+
+    var isValidAttending = function(attending) {
+        return (typeof(attending) !=="undefined" && attending !==null);
+    };
+    var isValid = true;
+
+    if (!isValidAttending(guest.status)) {
+        return false;
+    };
+    angular.forEach(guest.members, function(member){
+        console.log(member.name + " " + member.status);
+        if (!isValidAttending(member.status)) {
+            isValid = false;
+        }
+    });
+    return isValid;
+
+};
 //remove this
  // $scope.upload = function() {
  //     var fdata = [];

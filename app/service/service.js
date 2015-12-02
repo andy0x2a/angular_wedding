@@ -69,7 +69,7 @@ angular.module('myApp.service',[])
       return {
 
             getAllFamilies: _getAllFamilies,
-            submitGuets: _submitGuests,
+            submitGuests: _submitGuests,
             getPhotos: _getPhotos
       }
 }]);

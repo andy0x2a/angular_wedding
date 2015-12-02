@@ -1,84 +1,83 @@
 
-<div class="  ">
-
-            <div class=" rsvp-container  salmon ">
-<form name="myForm" >
-<div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-2 col-lg-offset-2">
-        <label for="guestName"> Name: </label>
-        <input type="text" id="guestName" name="guestName" ng-model="guest.name" ng-disabled="pruned.length ==1 " ng-change="updatePlusOne()">
-        <div style=" border: 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
-            <div ng-repeat=" g in pruned"  class="rsvp-select" ng-click="guestListClicked(g)">
-                <span class="rsvp-select-element" >{{g.name}}</span><br>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-sm-4">
-                <label>
-                    <input type="radio" ng-model="guest.status" value="attending" class="attendingRadio">
-                    Attending
-                </label>
-                <label>
-                    <input type="radio" ng-model="guest.status" value="declined">
-                    Not attending
-                </label>
-                <br>
-            </div>
-
-        </div>
 
 
-        <div ng-repeat=" member in guest.members" class="memberEntry">
-            <label for="plusOne"> {{member.name}} </label>
-            <!-- <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name"> -->
-            <!--<span name="plusOne" id="plusOne">{{plusOne}}</span>-->
-    <div class="row">
-        <div class="col-sm-4">
-
-            <label>
-                <input type="radio"  ng-model="member.status" value="attending">
-                Attending
-            </label>
-            <label>
-                <input type="radio" ng-model="member.status" value="declined">
-                Not attending
-            </label><br/>
-
-
-        </div>
-
+    <div class=" ">
+    <div>
+        
+        guestFound: {{guestFound}}<br/>
+        isValid: {{isValid(guest)}} <br>
+        guest: {{guest}}
     </div>
-        <!--Attending-->
-            <!--<input type="checkbox"> Not attending-->
+
+        <div class=" rsvp-container salmon ">
+            <form name="myForm">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-md-offset-2 col-lg-offset-2">
+                        <label for="guestName"> Name: </label>
+                        <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guest.name" ng-disabled="pruned.length ==1 " ng-change="updatePlusOne()">
+                          <span  ng-model="guest.name" ng-show="guestFound"> {{guest.name}} </span>
+                        <div style=" border 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
+                            <div ng-repeat=" g in pruned" class="rsvp-select" ng-click="guestListClicked(g)">
+                                <span class="rsvp-select-element">{{g.name}}</span><br>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="radio" ng-model="guest.status" value="attending" class="attendingRadio">
+                                    Attending
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="guest.status" value="declined">
+                                    Not attending
+                                </label>
+                                <br>
+                            </div>
+
+                        </div>
+
+
+                        <div ng-repeat=" member in guest.members" class="memberEntry">
+                            <label for="plusOne"> {{member.name}} </label>
+                            <!-- <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name"> -->
+                            <!--<span name="plusOne" id="plusOne">{{plusOne}}</span>-->
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <label>
+                                        <input type="radio" ng-model="member.status" value="attending">
+                                        Attending
+                                    </label>
+                                    <label>
+                                        <input type="radio" ng-model="member.status" value="declined">
+                                        Not attending
+                                    </label><br />
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-md-5 col-md-offset-2">
+                                <button  class="btn btn-primary" ng-click="submit()" ng-disabled="!isValid(guest)"> Submit </button>  
+                                <button    class="btn btn-primary" ng-click="guest = {}; pruned = []; guestFound = false"> Clear </button>
+
+
+                            </div>
+                            
+                        </div>
+            </form>
 
         </div>
-        <!--<div ng-show="guest.hasPlusOne == true" class="col-md-12 col-md-offset-1">-->
-            <!--<label for="plusOne"> plusOne</label>-->
-            <!--<input type="text" id="plusOne" name="plusOneName" ng-model="guest.plusOne">-->
-            <!--<input type="checkbox"> attending-->
-        <!--</div>-->
-        </d class="col-md-5" col-md-offset-2>
-            <input type="submit" ng-click="submit()"/>
-            <button  ng-click="guest = {}; pruned = []" > Clear </button>
-                <!-- <button  ng-click="upload()" >upload </button> -->
-        </div>
     </div>
-    <modal-dialog show='modalShown' width='300px' height='30%' on-submit-function='submittoapi'>
-       <ul>
-           <div ng-repeat="guestMessage in modalGuestMessges">
-                <li><span>{{guestMessage}} </span></li>
-           </div>
-       </ul>
-        <!-- <p>{{modalMessage}}<p> -->
-    </modal-dialog>
-
-
-</div>
-
-
-
-</form>
-
-    </div>
-</div>
+<modal-dialog show='modalShown' width='300px'  on-submit-function='submittoapi'>
+                                <ul>
+                                    <div ng-repeat="guestMessage in modalGuestMessges">
+                                        <li><span>{{guestMessage}} </span></li>
+                                    </div>
+                                </ul>
+                                {{modalMessage}}
+                            
+ </modal-dialog>
