@@ -10,5 +10,6 @@ angular.module('myApp.registry', ['ngRoute'])
 }])
 
 .controller('registryController', [function() {
+      window.scrollTo(0,0);
 
 }]);

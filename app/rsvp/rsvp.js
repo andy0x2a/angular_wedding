@@ -134,7 +134,9 @@ $scope.submittoapi = function() {
         alert("Failed to submit");
     });
     
-}
+};
+        window.scrollTo(0,0);
+
 
 //remove this
  // $scope.upload = function() {

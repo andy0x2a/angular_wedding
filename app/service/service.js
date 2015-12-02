@@ -27,7 +27,7 @@ angular.module('myApp.service',[])
       var _getPhotos = function() {
             var galleryLocation = "/img/gallery/";
 
-            var photos = [
+            var _photos = [
             {name:"1.jpg"},
             {name:"2.jpg"},
             {name:"3.jpg"},
@@ -62,7 +62,7 @@ angular.module('myApp.service',[])
             ];
 
 
-            return {path:galleryLocation, photos};
+            return {path:galleryLocation, photos:_photos};
 
       }
 

@@ -12,6 +12,8 @@ angular.module('myApp.photos', ['ngRoute', 'myApp.service'])
 .controller('photosController', ['$scope', '$filter' ,'$window','apiService' ,function($scope, $filter, $window, api) {
 
 $scope.init = function() {
+	window.scrollTo(0,0);
+
 	$scope.getPhotos();
 
 	    $("#fullscreen, .big-img").on('keydown', function ($event) {

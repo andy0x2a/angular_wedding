@@ -11,4 +11,7 @@ angular.module('myApp.about', ['ngRoute'])
 
 .controller('aboutController', [function() {
 
-}]);
+
+      window.scrollTo(0,0);
+
+    }]);
