@@ -2,26 +2,28 @@
 
 
     <div class=" ">
-    <div>
+  <!--   <div>
         
         guestFound: {{guestFound}}<br/>
-        isValid: {{isValid(guest)}} <br>
-        guest: {{guest}}
-    </div>
+        isValid: {{isValid(guest)}} <br/>
+        guest: {{guest}} <br/>
+        guestStatus: {{guest.status}} <br/>
+        members: {{guest.members}} <br/>
+    </div> -->
 
         <div class=" rsvp-container salmon ">
             <form name="myForm">
                 <div class="row">
                     <div class="col-lg-10 col-md-10 col-md-offset-2 col-lg-offset-2">
-                        <label for="guestName"> Name: </label>
-                        <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guest.name" ng-disabled="pruned.length ==1 " ng-change="updatePlusOne()">
-                          <span  ng-model="guest.name" ng-show="guestFound"> {{guest.name}} </span>
+                        <label for="guestName"> Guest: </label>
+                        <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guestSearch" ng-disabled="pruned.length ==1 " ng-change="searchForGuest()">
+                          <label><span  ng-model="guest.name" ng-show="guestFound"> {{guest.name}} </span> </label>
                         <div style=" border 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
                             <div ng-repeat=" g in pruned" class="rsvp-select" ng-click="guestListClicked(g)">
                                 <span class="rsvp-select-element">{{g.name}}</span><br>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-hide="!guestFound">
 
                             <div class="col-sm-4">
                                 <label>
@@ -39,7 +41,7 @@
 
 
                         <div ng-repeat=" member in guest.members" class="memberEntry">
-                            <label for="plusOne"> {{member.name}} </label>
+                            <label for="plusOne">Guest: {{member.name}} </label>
                             <!-- <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name"> -->
                             <!--<span name="plusOne" id="plusOne">{{plusOne}}</span>-->
                             <div class="row">
@@ -61,8 +63,8 @@
                         </div>
                         <div>
                             <div class="col-md-5 col-md-offset-2">
-                                <button  class="btn btn-primary" ng-click="submit()" ng-disabled="!isValid(guest)"> Submit </button>  
-                                <button    class="btn btn-primary" ng-click="guest = {}; pruned = []; guestFound = false"> Clear </button>
+                                <button id="submitBtn" class="btn btn-primary submit-button" ng-click="submit()" ng-disabled="!isValid(guest)"> Submit </button>  
+                                <button    class="btn btn-primary" ng-click="guest = {}; pruned = []; guestFound = false; guestSearch = ''"> Clear </button>
 
 
                             </div>
@@ -72,10 +74,10 @@
 
         </div>
     </div>
-<modal-dialog show='modalShown' width='300px'  on-submit-function='submittoapi'>
+<modal-dialog show='modalShown' width='100px' on-submit-function='submittoapi'>
                                 <ul>
                                     <div ng-repeat="guestMessage in modalGuestMessges">
-                                        <li><span>{{guestMessage}} </span></li>
+                                        <li style='list-style-type:none'><span>{{guestMessage}} </span></li>
                                     </div>
                                 </ul>
                                 {{modalMessage}}

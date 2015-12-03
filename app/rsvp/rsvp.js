@@ -40,7 +40,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
      
         $scope.guestListClicked = function(guest) {
             var family = $scope.getFamilyForGuest(guest);
-            $scope.setGuestDataForFamily(family);
+            $scope.setGuestDataForFamily(family, guest);
             $scope.guestFound = true;
         }
 
@@ -69,24 +69,33 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
             //$scope.pruned = pruned;
 
             if($scope.pruned.length ===1) {
-                var found= $scope.pruned[0];
-              result = $scope.getFamilyForGuest(found);
+              //   var found= $scope.pruned[0];
+              // result = $scope.getFamilyForGuest(found);
+              result = $scope.pruned[0];
               $scope.guestFound = true;
             }
             return result;
 
         };
 
-        $scope.updatePlusOne = function() {
+        $scope.searchForGuest = function() {
             //todo check real response against list from azure search
-            var family = $scope.findGuest($scope.guest.name);
-            $scope.setGuestDataForFamily(family);
+            var guest = $scope.findGuest($scope.guestSearch);
+            if (typeof(guest) !=="undefined") {
+
+             var family = $scope.getFamilyForGuest(guest);
+             $scope.setGuestDataForFamily(family, guest);
+            $scope.guestFound = true;
+            }
+            
         }
-        $scope.setGuestDataForFamily = function(family) {
+
+
+        $scope.setGuestDataForFamily = function(family, guest) {
 
         if (typeof family != "undefined") {
             $scope.pruned = [];
-
+            $scope.guest = guest;
                 $scope.guest.name = family.head;
                 $scope.guest.members = family.members;
                 angular.forEach($scope.guest.members, function(member, index){
@@ -94,15 +103,11 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
                         $scope.guest.members.splice(index,1);
                     }
                 });
-
-                $scope.guest.hasPlusOne=true;
                 return true;
-
             }
             var name = $scope.guest.name;
             $scope.guest = {};
             $scope.guest.name = name;
-            $scope.guest.hasPlusOne=false;
           
         }
 $scope.submit = function() {

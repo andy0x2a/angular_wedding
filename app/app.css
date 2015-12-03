@@ -70,3 +70,7 @@
   font-weight: bold;
   font-family: 'arial', 'sans-serif';
 }
+
+button[disabled], html input[disabled], .submit-button[disabled], #submitBtn[disabled] {
+cursor:default;
+}
