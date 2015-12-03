@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.startsWith',
   'myApp.modal',
   'myApp.service',
+  'myApp.welcome',
   'myApp.rsvp',
   'myApp.photos',
   'myApp.registry',
@@ -16,5 +17,5 @@ angular.module('myApp', [
 
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/about'});
+  $routeProvider.otherwise({redirectTo: '/welcome'});
 }]);
