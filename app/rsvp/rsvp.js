@@ -3,193 +3,193 @@
 angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
 
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/rsvp', {
-    templateUrl: 'rsvp/rsvp.html',
-    controller: 'rsvpController'
-  });
+.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/rsvp', {
+        templateUrl: 'rsvp/rsvp.html',
+        controller: 'rsvpController'
+    });
 }])
 
 
-.controller('rsvpController', ['$scope', '$filter' ,'apiService' ,'$http',function($scope, $filter, api, $http) {
-        $scope.names = [];
-      var task  = api.getAllFamilies();
-      task.then(function(data) {
-            
-            $scope.families = data.data;
+.controller('rsvpController', ['$scope', '$filter', 'apiService', '$http', function ($scope, $filter, api, $http) {
+    $scope.names = [];
+    var task = api.getAllFamilies();
+    task.then(function (data) {
 
-            angular.forEach($scope.families, function(family) {
-                angular.forEach(family.members, function(member) {
+        $scope.families = data.data;
+
+        angular.forEach($scope.families, function (family) {
+            angular.forEach(family.members, function (member) {
                 member.familyId = family.id;
                 member.familyName = family.name;
                 $scope.names.push(member);
-                })
+            })
 
-            });
+        });
 
-      }, function(error) {
+    }, function (error) {
         alert("something went wrong, please reload the page and try again. If this problem persists, contact Andy");
     });
 
-      $scope.attendingStatus = function(guest) {
-        if (typeof(guest.status) !=="undefined" && guest.status !== null) {
-            return guest.status==="attending"?1:0;
+    $scope.attendingStatus = function (guest) {
+        if (typeof (guest.status) !== "undefined" && guest.status !== null) {
+            return guest.status === "attending" ? 1 : 0;
         }
         return 0;
-      }
-     
-        $scope.guestListClicked = function(guest) {
-            var family = $scope.getFamilyForGuest(guest);
-            $scope.setGuestDataForFamily(family, guest);
-            $scope.guestFound = true;
-        }
+    }
 
-       
-      $scope.getFamilyForGuest = function(guest) {
-          var family ;
+    $scope.guestListClicked = function (guest) {
+        var family = $scope.getFamilyForGuest(guest);
+        $scope.setGuestDataForFamily(family, guest);
+        $scope.guestFound = true;
+    }
 
-          angular.forEach($scope.families, function(fam){
+
+    $scope.getFamilyForGuest = function (guest) {
+        var family;
+
+        angular.forEach($scope.families, function (fam) {
 
             if (guest.familyId === fam.id) {
                 family = fam;
 
             }
-          }); 
-            family.head= guest.name;
-          return family;
-      };
-        $scope.findGuest = function(gName) {
+        });
+        family.head = guest.name;
+        return family;
+    };
+    $scope.findGuest = function (gName) {
 
-            var result;
-            //search both names in each family
-            //var pruned = $filter('filter')($scope.names, {name :gName }, false);
-             $scope.pruned = $filter('startsWith')($scope.names, gName);
-            //var starts = $filter('filter')($scope.names, startsWith());
-            //
-            //$scope.pruned = pruned;
+        var result;
+        //search both names in each family
+        //var pruned = $filter('filter')($scope.names, {name :gName }, false);
+        $scope.pruned = $filter('startsWith')($scope.names, gName);
+        //var starts = $filter('filter')($scope.names, startsWith());
+        //
+        //$scope.pruned = pruned;
 
-            if($scope.pruned.length ===1) {
-              //   var found= $scope.pruned[0];
-              // result = $scope.getFamilyForGuest(found);
-              result = $scope.pruned[0];
-              $scope.guestFound = true;
-            }
-            return result;
-
-        };
-
-        $scope.searchForGuest = function() {
-            //todo check real response against list from azure search
-            var guest = $scope.findGuest($scope.guestSearch);
-            if (typeof(guest) !=="undefined") {
-
-             var family = $scope.getFamilyForGuest(guest);
-             $scope.setGuestDataForFamily(family, guest);
+        if ($scope.pruned.length === 1) {
+            //   var found= $scope.pruned[0];
+            // result = $scope.getFamilyForGuest(found);
+            result = $scope.pruned[0];
             $scope.guestFound = true;
-            }
-            
+        }
+        return result;
+
+    };
+
+    $scope.searchForGuest = function () {
+        //todo check real response against list from azure search
+        var guest = $scope.findGuest($scope.guestSearch);
+        if (typeof (guest) !== "undefined") {
+
+            var family = $scope.getFamilyForGuest(guest);
+            $scope.setGuestDataForFamily(family, guest);
+            $scope.guestFound = true;
         }
 
+    }
 
-        $scope.setGuestDataForFamily = function(family, guest) {
+
+    $scope.setGuestDataForFamily = function (family, guest) {
 
         if (typeof family != "undefined") {
             $scope.pruned = [];
             $scope.guest = guest;
-                $scope.guest.name = family.head;
-                $scope.guest.members = family.members;
-                angular.forEach($scope.guest.members, function(member, index){
-                    if(member.name == family.head) {
-                        $scope.guest.members.splice(index,1);
-                    }
-                });
-                return true;
-            }
-            var name = $scope.guest.name;
-            $scope.guest = {};
-            $scope.guest.name = name;
-          
+            $scope.guest.name = family.head;
+            $scope.guest.members = family.members;
+            angular.forEach($scope.guest.members, function (member, index) {
+                if (member.name == family.head) {
+                    $scope.guest.members.splice(index, 1);
+                }
+            });
+            return true;
         }
-$scope.submit = function() {
+        var name = $scope.guest.name;
+        $scope.guest = {};
+        $scope.guest.name = name;
 
-    var modalGuestMessges = [];
+    }
+    $scope.submit = function () {
 
-    modalGuestMessges.push($scope.guest.name + " is " + $scope.guest.status );
+        var modalGuestMessges = [];
 
-    angular.forEach($scope.guest.members, function(member) {
-        modalGuestMessges.push(member.name  + " is " + member.status);
-    });
-    //window.confirm(message);
-    $scope.modalGuestMessges = modalGuestMessges;
-    $scope.modalShown = true;
-}
+        modalGuestMessges.push($scope.guest.name + " is " + $scope.guest.status);
 
-$scope.submittoapi = function() {
-    console.log("GO");
-    var allMembersToSubmit = [];
-    allMembersToSubmit.push($scope.guest);
-
-    angular.forEach($scope.guest.members, function(member) {
-        allMembersToSubmit.push(member);
-    });
-
-    console.log(allMembersToSubmit);
-    var task = api.submitGuests(allMembersToSubmit);
-    task.then(function() {
-        alert("Success");
-    }, function() {
-        alert("Failed to submit");
-    });
-    
-};
-        window.scrollTo(0,0);
-
-$scope.isValid = function(guest) {
-
-    if (typeof(guest) ==="undefined") {
-        return false;
+        angular.forEach($scope.guest.members, function (member) {
+            modalGuestMessges.push(member.name + " is " + member.status);
+        });
+        //window.confirm(message);
+        $scope.modalGuestMessges = modalGuestMessges;
+        $scope.modalShown = true;
     }
 
-    var isValidAttending = function(attending) {
-        return (typeof(attending) !=="undefined" && attending !==null);
-    };
-    var isValid = true;
+    $scope.submittoapi = function () {
+        console.log("GO");
+        var allMembersToSubmit = [];
+        allMembersToSubmit.push($scope.guest);
 
-    if (!isValidAttending(guest.status)) {
-        return false;
+        angular.forEach($scope.guest.members, function (member) {
+            allMembersToSubmit.push(member);
+        });
+
+        console.log(allMembersToSubmit);
+        var task = api.submitGuests(allMembersToSubmit);
+        task.then(function () {
+            alert("Success");
+        }, function () {
+            alert("Failed to submit");
+        });
+
     };
-    angular.forEach(guest.members, function(member){
-        console.log(member.name + " " + member.status);
-        if (!isValidAttending(member.status)) {
-            isValid = false;
+    window.scrollTo(0, 0);
+
+    $scope.isValid = function (guest) {
+
+        if (typeof (guest) === "undefined") {
+            return false;
         }
-    });
-    return isValid;
 
-};
-//remove this
- // $scope.upload = function() {
- //     var fdata = [];
- //     Object.keys($scope.families).forEach(function (key) {
- //   // do something with obj[key]
- //   var family = $scope.families[key];
- //   family.name = family.family;
- //   fdata.push(family);
- //        });
-           
- //           console.log(fdata);
-           
+        var isValidAttending = function (attending) {
+            return (typeof (attending) !== "undefined" && attending !== null);
+        };
+        var isValid = true;
 
- //               var req = {
- //                method: 'POST',
- //                data:fdata,
- //                url: "http://localhost:8080/family/init"
- //                }       
- //                var task = $http(req);
- //                task.then(function() {
- //                    console.log("SUCCESS")
- //                }, console.log("FAIL"));
-           
- //        }
+        if (!isValidAttending(guest.status)) {
+            return false;
+        };
+        angular.forEach(guest.members, function (member) {
+            console.log(member.name + " " + member.status);
+            if (!isValidAttending(member.status)) {
+                isValid = false;
+            }
+        });
+        return isValid;
 
-    }]);
+    };
+    //remove this
+    // $scope.upload = function() {
+    //     var fdata = [];
+    //     Object.keys($scope.families).forEach(function (key) {
+    //   // do something with obj[key]
+    //   var family = $scope.families[key];
+    //   family.name = family.family;
+    //   fdata.push(family);
+    //        });
+
+    //           console.log(fdata);
+
+
+    //               var req = {
+    //                method: 'POST',
+    //                data:fdata,
+    //                url: "http://localhost:8080/family/init"
+    //                }       
+    //                var task = $http(req);
+    //                task.then(function() {
+    //                    console.log("SUCCESS")
+    //                }, console.log("FAIL"));
+
+    //        }
+
+}]);

@@ -1,9 +1,9 @@
 angular.module('myApp.startsWith', [])
-    .filter('startsWith', [function() {
+    .filter('startsWith', [function () {
         return function (input, expected) {
             var out = [];
 
-            if(typeof(expected) === "undefined") {
+            if (typeof (expected) === "undefined") {
                 return input;
             };
             angular.forEach(input, function (guest) {
