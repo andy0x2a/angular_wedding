@@ -9,7 +9,7 @@ body {
 .bg {
     background-image: url("/img/bg_flowers.jpg");
     height: 1000px;
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
     /*background-position: center;*/
     background-size: cover  ;
     /*margin-left: 5px;*/

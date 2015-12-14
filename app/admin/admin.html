@@ -1,0 +1,30 @@
+<div>
+
+
+	<form>
+	<div ng-show="!isAuthorized">
+	<label for="pwd"> Administrator Password: </label>
+	<input name="pwd" ng-model="adminPassword">
+	<button class="btn btn-primary" ng-click="login()"></button>
+	</div>
+
+	<div class="a-table" ng-show="isAuthorized" ng-disabled="!isAuthorized">
+			<div ng-repeat="guest in guests" class="row" style="margin-bottom:10px">
+					<div class="col-sm-24"> 
+					<label for="guestname"> Name: </label>
+					<input ng-model="guest.name" name="guestName"> 
+				        		    <select name="singleSelect" id="singleSelect" ng-model="guest.status">
+								      <option value=""> </option> <!-- not selected / blank option -->
+								      <option value="attending">Attending</option> <!-- interpolation -->
+								      <option value="declined">Declined</option>
+								    </select><br>
+					</div>
+
+				
+			</div>
+			<button class="btn btn-primary" ng-click="submit()"> Submit </button>
+		</div> 
+		
+	</form>
+
+</div>

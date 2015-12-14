@@ -13,7 +13,8 @@ angular.module('myApp', [
   'myApp.registry',
   'myApp.contact',
   'myApp.directions',
-   'myApp.about'
+   'myApp.about',
+   'myApp.admin'
 
 ]).
 config(['$routeProvider', function($routeProvider) {

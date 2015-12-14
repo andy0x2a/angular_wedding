@@ -9,10 +9,20 @@ angular.module('myApp.service',[])
             var req = {
                 method: 'GET',
                 url: constants.config.apiBase + '/family/'
+                
           };
           return $http(req);
       };
-
+  var _getAllGuests = function(password) {
+            var req = {
+                method: 'GET',
+                url: constants.config.apiBase + '/admin/guests/',
+                headers: {
+                  'adminpass': password
+                  },
+          };
+          return $http(req);
+      };
 
       var _submitGuests =  function(requestData) {    
             var req = {
@@ -24,6 +34,7 @@ angular.module('myApp.service',[])
           return $http(req);
       };
 
+    
       var _getPhotos = function() {
             var galleryLocation = "/img/gallery/";
 
@@ -70,6 +81,7 @@ angular.module('myApp.service',[])
 
             getAllFamilies: _getAllFamilies,
             submitGuests: _submitGuests,
-            getPhotos: _getPhotos
+            getPhotos: _getPhotos,
+            getAllGuests: _getAllGuests
       }
 }]);
