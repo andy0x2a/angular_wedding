@@ -9,17 +9,24 @@ angular.module('myApp.photos', ['ngRoute', 'myApp.service'])
   });
 }])
 
-.controller('photosController', ['$scope', '$filter' ,'$window','apiService' ,function($scope, $filter, $window, api) {
+.controller('photosController', ['$scope', '$rootScope', '$filter' ,'$window','apiService' ,function($scope, $rootScope, $filter, $window, api) {
 
 $scope.init = function() {
 	window.scrollTo(0,0);
 
+$scope.keyCodes = [27,37,39];
+
+$rootScope.$on('keydown', function (evt, obj, key) {
+	if ($scope.keyCodes.indexOf(obj.keyCode) >-1 && obj.currentTarget.URL.indexOf("#/photos") >-1) {
+       $scope.changePhoto(obj);
+		}
+	
+    });
+
+
 	$scope.getPhotos();
 
-	    $("#fullscreen, .big-img").on('keydown', function ($event) {
-	    var keyCode = (window.event ? keyEvent.keyCode : keyEvent.which);
-	    console.log(keyCode);
-	    });
+	    
 };
 
 $scope.getDocHeight = function() {
@@ -31,8 +38,20 @@ $scope.showImage = function(photo) {
 
 };
 
-$scope.keyPressed = function(event) {
-console.log(event.keyCode);
+
+$scope.changePhoto = function($event, identifier) {
+	console.log($event.keyCode);
+	if ($event.keyCode === 27) {
+		$scope.hideImage();
+		}
+		if ($event.keyCode === 37 && $scope.currentPhoto.index>0) {
+			$scope.currentPhoto = $scope.photoTemplates.photos[$scope.currentPhoto.index-1]
+		}
+		if ($event.keyCode === 39 && $scope.currentPhoto.index< $scope.photoTemplates.photos.length-1) {
+			$scope.currentPhoto = $scope.photoTemplates.photos[$scope.currentPhoto.index+1]
+		}
+		$scope.$apply();
+
 }
 
 $scope.hideImage = function() {
@@ -42,13 +61,18 @@ $scope.hideImage = function() {
 };
 $scope.getPhotos = function() {
 	$scope.photoTemplates = api.getPhotos();
-	angular.forEach($scope.photoTemplates.photos, function(photo) {
+	angular.forEach($scope.photoTemplates.photos, function(photo, idx) {
 		photo.thumb = $scope.photoTemplates.path + "thumb/" + photo.name;
 		photo.url = $scope.photoTemplates.path + "" + photo.name;
+		photo.index = idx;
+		photo.tabindex=7+(idx*2);
+		photo.tabindex=7+(idx*2);
+
 
 
 	});
 }
+
 
 $scope.init();
 }]);

@@ -12,6 +12,7 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
 .controller('adminController', ['$scope', 'apiService', function ($scope, apiService) {
 
     $scope.isAuthorized = false;
+    $scope.showGuests = true;
     window.scrollTo(0, 0);
     $scope.getGuests = function () {
 
@@ -30,15 +31,27 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
         }, function () {
             $scope.isAuthorized = false;
             $scope.adminPassword = "";
-            alert("Invalid Password");
+            $scope.message = "Invalid password";
+            $scope.showMessage = true;
         });
     }
 
     $scope.submit = function () {
-        apiService.submitGuests($scope.guests).then(function (response) { alert("success") }, function (error) {
-            alert("failed" + error);
+        window.scrollTo(0, 0);
+        $scope.showGuests = false;
+        apiService.submitGuests($scope.guests).then(function (response) {
+            $scope.message = "Success";
+            $scope.showMessage = true;
+            
+        }, function (error) {
+            $scope.message = "Error: " + error ;
+            $scope.showMessage = true;
 
         });
     }
-
+    $scope.closeModal = function () {
+        $scope.showMessage = false;
+        $scope.message = undefined;
+        $scope.showGuests = true;
+    }
 }]);

@@ -1,5 +1,10 @@
 <div style="margin-top:25px">
-
+ <modal-dialog show='showMessage' width='100px' show-buttons="false" on-close='closeModal'>
+        {{message}}
+        <div style="margin:20px auto 10px auto; width:50%">
+            <button class="btn btn-primary" ng-click="closeModal()"> OK</button>
+        </div>
+    </modal-dialog>
 
     <form>
         <div ng-show="!isAuthorized">
@@ -8,7 +13,7 @@
             <button class="btn btn-primary" ng-click="login()"> Login</button>
         </div>
 
-        <div class="a-table" ng-show="isAuthorized" ng-disabled="!isAuthorized">
+        <div class="a-table" ng-show="isAuthorized && showGuests" ng-disabled="!isAuthorized">
             <div ng-repeat="guest in guests" class="row" style="margin-bottom:10px">
                 <div class="col-sm-24">
                     <label for="guestname"> Name: </label>
@@ -19,12 +24,11 @@
                         <option value="declined">Declined</option>
                     </select><br>
                 </div>
-
-
             </div>
             <button class="btn btn-primary" ng-click="submit()"> Submit </button>
         </div>
 
     </form>
-
+   
 </div>
+

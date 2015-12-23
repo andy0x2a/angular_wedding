@@ -59,19 +59,10 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         return family;
     };
     $scope.findGuest = function (gName) {
-
         var result;
-        //search both names in each family
-        //var pruned = $filter('filter')($scope.names, {name :gName }, false);
-        $scope.pruned = $filter('startsWith')($scope.names, gName);
-        //var starts = $filter('filter')($scope.names, startsWith());
-        //
-        //$scope.pruned = pruned;
-
-        if ($scope.pruned.length === 1) {
-            //   var found= $scope.pruned[0];
-            // result = $scope.getFamilyForGuest(found);
-            result = $scope.pruned[0];
+         $scope.pruned = $filter('startsWith')($scope.names, gName);
+           if ($scope.pruned.length === 1) {
+                 result = $scope.pruned[0];
             $scope.guestFound = true;
         }
         return result;
@@ -79,7 +70,6 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
     };
 
     $scope.searchForGuest = function () {
-        //todo check real response against list from azure search
         var guest = $scope.findGuest($scope.guestSearch);
         if (typeof (guest) !== "undefined") {
 
@@ -125,7 +115,6 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
     }
 
     $scope.submittoapi = function () {
-        console.log("GO");
         var allMembersToSubmit = [];
         allMembersToSubmit.push($scope.guest);
 
@@ -133,12 +122,17 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
             allMembersToSubmit.push(member);
         });
 
-        console.log(allMembersToSubmit);
+      
         var task = api.submitGuests(allMembersToSubmit);
         task.then(function () {
-            alert("Success");
+            $scope.thankYouMessage = "RSVP confirmed. Thank you"
+
         }, function () {
-            alert("Failed to submit");
+            $scope.thankYouMessage = "Uh oh, something went wrong, please reload the page and try again. If the problem persists, please contact Andy";
+           
+        }).finally(function () {
+            $scope.modalShown = false;
+            $scope.showThankYou = true;
         });
 
     };
@@ -167,29 +161,9 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         return isValid;
 
     };
-    //remove this
-    // $scope.upload = function() {
-    //     var fdata = [];
-    //     Object.keys($scope.families).forEach(function (key) {
-    //   // do something with obj[key]
-    //   var family = $scope.families[key];
-    //   family.name = family.family;
-    //   fdata.push(family);
-    //        });
 
-    //           console.log(fdata);
-
-
-    //               var req = {
-    //                method: 'POST',
-    //                data:fdata,
-    //                url: "http://localhost:8080/family/init"
-    //                }       
-    //                var task = $http(req);
-    //                task.then(function() {
-    //                    console.log("SUCCESS")
-    //                }, console.log("FAIL"));
-
-    //        }
-
+    $scope.closeModal = function () {
+        $scope.showThankYou = false;
+    }
+    
 }]);

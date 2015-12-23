@@ -5,7 +5,9 @@ angular.module('myApp.modal', [])
             restrict: 'E',
             scope: {
                 show: '=',
-                onSubmitFunction: '=onSubmitFunction'
+                onSubmitFunction: '=onSubmitFunction',
+                showButtons: "=showButtons",
+                onClose: "=onClose"
             },
             replace: true, // Replace with the template below
             transclude: true, // we want to insert custom content inside the directive
@@ -13,10 +15,14 @@ angular.module('myApp.modal', [])
 
                 scope.hideModal = function () {
                     scope.show = false;
+
+                    if (typeof (scope.onClose) !== "undefined") {
+                        scope.onClose();
+                    }
                 };
 
                 scope.doSubmit = function () {
-                    console.log('here');
+                   
                     if (typeof (scope.onSubmitFunction) !== "undefined") {
                         scope.onSubmitFunction();
                     }

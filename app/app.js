@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.startsWith',
   'myApp.modal',
   'myApp.service',
+  'myApp.keyEventPressed',
   'myApp.welcome',
   'myApp.rsvp',
   'myApp.photos',

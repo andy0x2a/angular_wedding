@@ -74,7 +74,7 @@
 
     </div>
 </div>
-<modal-dialog show='modalShown' width='100px' on-submit-function='submittoapi'>
+<modal-dialog show='modalShown' show-buttons="true" width='100px' on-submit-function='submittoapi' >
     <ul>
         <div ng-repeat="guestMessage in modalGuestMessges">
             <li style='list-style-type:none'><span>{{guestMessage}} </span></li>
@@ -82,4 +82,10 @@
     </ul>
     {{modalMessage}}
 
+</modal-dialog>
+<modal-dialog show='showThankYou' width='100px'  show-buttons="false"  on-submit-function='closeModals'>
+    {{thankYouMessage}}
+    <div style="margin:20px auto 10px auto; width:50%">
+        <button class="btn btn-primary" ng-click="closeModal()"> OK</button>
+    </div>
 </modal-dialog>
