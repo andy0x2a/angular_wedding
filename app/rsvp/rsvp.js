@@ -11,7 +11,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
 }])
 
 
-.controller('rsvpController', ['$scope', '$filter', 'apiService', '$http', function ($scope, $filter, api, $http) {
+.controller('rsvpController', ['$scope', '$filter', 'apiService', '$http', '$q', function ($scope, $filter, api, $http, $q) {
     $scope.names = [];
    
     $scope.loadAllFamilies = function () {
@@ -43,32 +43,36 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
     }
 
     $scope.guestListClicked = function (guest) {
-        var family = $scope.getFamilyForGuest(guest);
-        $scope.setGuestDataForFamily(family, guest);
-        $scope.guestFound = true;
+        $scope.getFamilyForGuest(guest).then(function (family) {
+            $scope.setGuestDataForFamily(family, guest);
+            $scope.guestFound = true;
+        });
+        
     }
 
 
     $scope.getFamilyForGuest = function (guest) {
         var family;
+        var defer = $q.defer();
 
         angular.forEach($scope.families, function (fam) {
 
             if (guest.familyId === fam.id) {
                 family = fam;
-
+                family.head = guest.name;
+                defer.resolve(family);
             }
         });
-        family.head = guest.name;
-        return family;
+        
+        return defer.promise;
     };
     $scope.findGuest = function (gName) {
         var result;
          $scope.pruned = $filter('startsWith')($scope.names, gName);
-           if ($scope.pruned.length === 1) {
-                 result = $scope.pruned[0];
-            $scope.guestFound = true;
-        }
+        //   if ($scope.pruned.length === 1) {
+        //         result = $scope.pruned[0];
+        //    $scope.guestFound = true;
+        //}
         return result;
 
     };
@@ -77,9 +81,12 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         var guest = $scope.findGuest($scope.guestSearch);
         if (typeof (guest) !== "undefined") {
 
-            var family = $scope.getFamilyForGuest(guest);
-            $scope.setGuestDataForFamily(family, guest);
-            $scope.guestFound = true;
+            $scope.getFamilyForGuest(guest).then(function (family) {
+
+                $scope.setGuestDataForFamily(family, guest);
+                $scope.guestFound = true;
+            }) ;
+            
         }
 
     }
@@ -144,11 +151,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         }).finally(function () {
             $scope.modalShown = false;
             $scope.showThankYou = true;
-            $scope.guestSearch = "";
-            $scope.guest = undefined;
-            $scope.guestFound = false;
-            $scope.names = [];
-            $scope.loadAllFamilies();
+            $scope.reload();
             
 
         });
@@ -179,7 +182,14 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         return isValid;
 
     };
-
+    $scope.reload = function () {
+        $scope.pruned = [];
+        $scope.guestSearch = "";
+        $scope.guest = undefined;
+        $scope.guestFound = false;
+        $scope.names = [];
+        $scope.loadAllFamilies();
+    }
     $scope.closeModal = function () {
         $scope.showThankYou = false;
     }

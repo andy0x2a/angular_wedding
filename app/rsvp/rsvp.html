@@ -1,28 +1,28 @@
 
 
 
-<div class=" ">
+<div class="">
   <div>
 
-          guestFound: {{guestFound}}<br/>
+          <!--guestFound: {{guestFound}}<br/>
           isValid: {{isValid(guest)}} <br/>
           guest: {{guest}} <br/>
           guestStatus: {{guest.status}} <br/>
           members: {{guest.members}} <br/>
       family: {{debugFamily}} <br />
       Used Members: {{guest.members.length}}
-      Total Members:{{guest.maxMembers}}
+      Total Members:{{guest.maxMembers}}-->
 
       </div> 
-    <div class=" rsvp-container salmon ">
+    <div class="rsvp-container salmon">
         <form name="myForm">
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-md-offset-2 col-lg-offset-2">
                     <label for="guestName"> Guest: </label>
-                    <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guestSearch" ng-disabled="pruned.length ==1 " ng-change="searchForGuest()">
+                    <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guestSearch" ng-disabled="pruned.length ==-1 " ng-change="searchForGuest()">
                     <label><span ng-model="guest.name" ng-show="guestFound"> {{guest.name}} </span> </label>
-                    <div style=" border 1px solid; width:400px" ng-show="pruned.length >1 && pruned.length <8">
-                        <div ng-repeat=" g in pruned" class="rsvp-select" ng-click="guestListClicked(g)">
+                    <div style="border: 1px solid; width:300px; z-index:10; position:absolute" ng-show="pruned.length >=1 && pruned.length <8">
+                        <div ng-repeat="g in pruned" class="rsvp-select" ng-click="guestListClicked(g)">
                             <span class="rsvp-select-element">{{g.name}}</span><br>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                     <div>
                         <div class="col-md-5 col-md-offset-2">
                             <button id="submitBtn" class="btn btn-primary submit-button" ng-click="submit()" ng-disabled="!isValid(guest)"> Submit </button>
-                            <button class="btn btn-primary" ng-click="guest = {}; pruned = []; guestFound = false; guestSearch = ''"> Clear </button>
+                            <button class="btn btn-primary" ng-click="reload()"> Clear </button>
 
 
                         </div>
