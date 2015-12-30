@@ -13,23 +13,27 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
 
 .controller('rsvpController', ['$scope', '$filter', 'apiService', '$http', function ($scope, $filter, api, $http) {
     $scope.names = [];
-    var task = api.getAllFamilies();
-    task.then(function (data) {
+   
+    $scope.loadAllFamilies = function () {
+        var task = api.getAllFamilies();
+        task.then(function (data) {
 
-        $scope.families = data.data;
+            $scope.families = data.data;
 
-        angular.forEach($scope.families, function (family) {
-            angular.forEach(family.members, function (member) {
-                member.familyId = family.id;
-                member.familyName = family.name;
-                $scope.names.push(member);
-            })
+            angular.forEach($scope.families, function (family) {
+                angular.forEach(family.members, function (member) {
+                    member.familyId = family.id;
+                    member.familyName = family.name;
+                    $scope.names.push(member);
+                })
 
+            });
+
+        }, function (error) {
+            alert("something went wrong, please reload the page and try again. If this problem persists, contact Andy");
         });
-
-    }, function (error) {
-        alert("something went wrong, please reload the page and try again. If this problem persists, contact Andy");
-    });
+    }
+    $scope.loadAllFamilies();
 
     $scope.attendingStatus = function (guest) {
         if (typeof (guest.status) !== "undefined" && guest.status !== null) {
@@ -88,11 +92,18 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
             $scope.guest = guest;
             $scope.guest.name = family.head;
             $scope.guest.members = family.members;
+            $scope.guest.maxMembers = family.familySize;
             angular.forEach($scope.guest.members, function (member, index) {
                 if (member.name == family.head) {
                     $scope.guest.members.splice(index, 1);
                 }
             });
+            var startingSize  = family.members.length;
+            for (var sizeItr = family.familySize - 1; sizeItr > startingSize; sizeItr--) {
+                $scope.guest.members.push({
+                    familyId: $scope.guest.familyId
+                });
+            }
             return true;
         }
         var name = $scope.guest.name;
@@ -133,6 +144,13 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         }).finally(function () {
             $scope.modalShown = false;
             $scope.showThankYou = true;
+            $scope.guestSearch = "";
+            $scope.guest = undefined;
+            $scope.guestFound = false;
+            $scope.names = [];
+            $scope.loadAllFamilies();
+            
+
         });
 
     };

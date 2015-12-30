@@ -2,15 +2,18 @@
 
 
 <div class=" ">
-    <!--   <div>
+  <div>
 
           guestFound: {{guestFound}}<br/>
           isValid: {{isValid(guest)}} <br/>
           guest: {{guest}} <br/>
           guestStatus: {{guest.status}} <br/>
           members: {{guest.members}} <br/>
-      </div> -->
+      family: {{debugFamily}} <br />
+      Used Members: {{guest.members.length}}
+      Total Members:{{guest.maxMembers}}
 
+      </div> 
     <div class=" rsvp-container salmon ">
         <form name="myForm">
             <div class="row">
@@ -41,6 +44,8 @@
 
 
                     <div ng-repeat=" member in guest.members" class="memberEntry">
+                        <div ng-show="member.id">
+
                         <label for="plusOne">Guest: {{member.name}} </label>
                         <!-- <input type="text" id="plusOne"  ng-disabled="true" name="plusOneName" ng-model="member.name"> -->
                         <!--<span name="plusOne" id="plusOne">{{plusOne}}</span>-->
@@ -59,6 +64,28 @@
 
                             </div>
 
+                        </div>
+                        </div>
+                        <div ng-hide="member.id">
+
+                            <label for="plusOne">Guest:</label>
+                             <input type="text" id="plusOne"   name="plusOneName" ng-model="member.name"> 
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <label>
+                                        <input type="radio" ng-model="member.status" value="attending">
+                                        Attending
+                                    </label>
+                                    <label>
+                                        <input type="radio" ng-model="member.status" value="declined">
+                                        Not attending
+                                    </label><br />
+
+
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div>
