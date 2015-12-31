@@ -288,8 +288,8 @@ body {
     border-width: 2px;
     /*background-color: salmon;*/
     /*max-width: 400px;*/
-    width:85%;
-    max-width: 600px;
+    /*width:85%;*/
+    max-width: 400px;
     min-width: 150px;
     opacity: .8;
     /*height: 350px;*/
@@ -301,7 +301,7 @@ body {
     margin-top: 100px;
     font-family: sans-serif;
     font-weight: 100;
-    padding:10px;
+    padding:10px 10px 10px 25px;
 
 }
 .rsvp-select{
