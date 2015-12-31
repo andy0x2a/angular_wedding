@@ -13,7 +13,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
 
 .controller('rsvpController', ['$scope', '$filter', 'apiService', '$http', '$q', function ($scope, $filter, api, $http, $q) {
     $scope.names = [];
-   
+    $scope.searchCtr = 0;
     $scope.loadAllFamilies = function () {
         var task = api.getAllFamilies();
         task.then(function (data) {
@@ -50,7 +50,50 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         
     }
 
+    $scope.searchKeyPressed = function ($event) {
+        var highlightSearchResult = function(ctr) {
 
+            angular.forEach($scope.pruned,function(guest, i) {
+                if (i !== ctr) {
+                    guest.highlighted = false;
+                } else {
+                    guest.highlighted = true;
+                }
+            
+            });
+        };
+        //40 down
+        //38 up
+        if ($event.which === 40) {
+            $scope.searchCtr++;
+            if ($scope.searchCtr > $scope.pruned.length -1) {
+                $scope.searchCtr = $scope.pruned.length -1;
+            }
+            highlightSearchResult($scope.searchCtr);
+
+        } else if ($event.which === 38) {
+            $scope.searchCtr--;
+            if ($scope.searchCtr <0) {
+                $scope.searchCtr = 0;
+            }
+            highlightSearchResult($scope.searchCtr);
+
+        }  else if ($event.which === 13) {
+            $scope.enterSearch($event)
+        } else {
+            $scope.searchCtr = -1;
+        }
+
+    }
+    $scope.enterSearch = function ($event) {
+        if ($scope.pruned.length === 1) {
+            $scope.guestListClicked($scope.pruned[0]);
+        } else if($scope.searchCtr >=0) {
+            $scope.guestListClicked($scope.pruned[$scope.searchCtr]);
+        }
+        $event.originalEvent.preventDefault();
+       
+    }
     $scope.getFamilyForGuest = function (guest) {
         var family;
         var defer = $q.defer();
@@ -189,6 +232,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         $scope.guestFound = false;
         $scope.names = [];
         $scope.loadAllFamilies();
+        $scope.searchCtr = 0;
     }
     $scope.closeModal = function () {
         $scope.showThankYou = false;

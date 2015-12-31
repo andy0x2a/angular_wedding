@@ -15,14 +15,27 @@
 
       </div> 
     <div class="rsvp-container salmon">
-        <form name="myForm">
+        <form name="myForm"  autocomplete="off" >
             <div class="row2" style="width:80%; margin:0 auto">
                 <div class="">
                     <label for="guestName"> Guest: </label>
-                    <input ng-show="!guestFound" class="guest-name" type="text" id="guestName" name="guestName" ng-model="guestSearch" ng-disabled="pruned.length ==-1 " ng-change="searchForGuest()">
+                    <input ng-show="!guestFound" 
+                           class="guest-name"
+                            type="text"
+                            id="guestName" 
+                           name="guestName" 
+                           ng-model="guestSearch"
+                            ng-disabled="pruned.length ==-1 " 
+                           ng-change="searchForGuest()"
+                             ng-keydown="searchKeyPressed($event)"
+                           >
                     <span ng-model="guest.name" ng-show="guestFound" style="white-space:nowrap;"> {{guest.name}} </span>
                     <div style="border: 1px solid; width:300px; z-index:10; position:absolute" ng-show="pruned.length >=1 && pruned.length <8">
-                        <div ng-repeat="g in pruned" class="rsvp-select" ng-click="guestListClicked(g)">
+                        <div ng-repeat="g in pruned" 
+                             class="rsvp-select" 
+                             ng-click="guestListClicked(g)"
+                             ng-class="{hovered: g.highlighted}"
+                             >
                             <span class="rsvp-select-element">{{g.name}}</span><br>
                         </div>
                     </div>
