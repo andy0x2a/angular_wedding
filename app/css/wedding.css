@@ -6,12 +6,13 @@
 body {
     padding-top: 50px;
 }
+
 .bg {
     background-image: url("/img/bg_flowers.jpg");
     height: 1000px;
     /*background-repeat: no-repeat;*/
     /*background-position: center;*/
-    background-size: cover  ;
+    background-size: cover;
     /*margin-left: 5px;*/
     /*margin-right:10px*/
     /*width:1001px;*/
@@ -24,22 +25,19 @@ body {
 }
 
 .wedding-vertical-center {
-  min-height: 30%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 30vh; /* These two lines are counted as one :-)       */
-
-  display: flex;
-  align-items: center;
+    min-height: 30%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 30vh; /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
 }
 
 .navbar-wedding-countdown {
     background-color: purple;
     color: white;
     opacity: 0.6;
-   /*float:right;*/
-   position: absolute;
-   right: 0;
-
-
+    /*float:right;*/
+    position: absolute;
+    right: 0;
 }
 
 /*
@@ -69,59 +67,70 @@ body {
 /* Mobile Sidebar, bigger than regular? */
 .sidebar-wedding {
     background-color: lavender;
-    opacity:  .8;
-   
+    opacity: .8;
 }
+
 .sidebar {
-    
-
-     position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 0;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #f5f5f5;
-        border-right: 1px solid #eee;
-       
-
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
 }
 
 .sideHamburger {
     display: none;
 }
 
-
+ .main-wedding {
+        margin-left: 0px;
+    }
+    .maincontentcontainer {
+        margin-top:0px;
+    }
 
 @media (max-width: 500px) {
+   .main-wedding {
+        margin-left: 0px;
+    }
+    .maincontentcontainer {
+        margin-top:0px;
+    }
 
-.sidebar {
-    display: none;
-     z-index:50;
-     font-size: 30px;
-     width:200px;
+    .sidebar {
+        display: none;
+        z-index: 50;
+        font-size: 30px;
+        width: 200px;
+    }
 
-
-}
-.sidebar-wedding {
-    background-color: lavender;
-    opacity:  1;
-   
-}
+    .sidebar-wedding {
+        background-color: lavender;
+        opacity: 1;
+    }
 
     .sideHamburger {
         display: block;
-        cursor:pointer;
-        }
-
+        cursor: pointer;
+        margin-left:5px;
+    }
 }
 
 
 @media (min-width: 500px) {
+       .main-wedding {
+        margin-left: 120px;
+    }
+    .maincontentcontainer {
+        margin-top:150px;
+    }
+
     .sidebar {
         display: block;
-
         position: fixed;
         top: 51px;
         bottom: 0;
@@ -131,11 +140,8 @@ body {
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
         background-color: #f5f5f5;
         border-right: 1px solid #eee;
-/*z-index:50;*/
+        /*z-index:50;*/
     }
-
-
-
 }
 
 
@@ -145,16 +151,18 @@ body {
     margin-bottom: 20px;
     margin-left: -20px;
 }
-.nav-sidebar > li > a {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-    color: #fff;
-    background-color: #428bca;
-}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
 
 
 /*
@@ -165,15 +173,14 @@ body {
     padding: 20px;
 }
 
-    .presented {
-
+.presented {
     border-radius: 10px;
     border-style: solid;
     border-width: 2px;
     /*max-width: 400px;*/
-        width:85%;
-        max-width: 800px;
-        min-width: 300px;
+    width: 85%;
+    max-width: 800px;
+    min-width: 300px;
     opacity: .8;
     height: 350px;
     line-height: 350px;
@@ -182,19 +189,17 @@ body {
     font-size: 36px;
     margin-left: auto;
     margin-right: auto;
-    font-family:  sans-serif;
+    font-family: sans-serif;
     font-weight: 700;
-
 }
 
 .maincontent {
-
     border-radius: 10px;
     border-style: solid;
     border-width: 2px;
     /*background-color: salmon;*/
     /*max-width: 400px;*/
-    width:85%;
+    width: 85%;
     max-width: 800px;
     min-width: 300px;
     opacity: .8;
@@ -207,31 +212,30 @@ body {
     margin-top: auto;
     font-family: sans-serif;
     font-weight: 100;
-    padding:10px;
-
+    padding: 10px;
 }
 
 .veryStrong {
     font-size: 21px;
 }
+
 .salmon {
     background-color: lavender;
 }
 
 /*@media (max-width: 768px) {*/
-    /*.presented {*/
-        /*width:85%;*/
-    /*}*/
+/*.presented {*/
+/*width:85%;*/
+/*}*/
 
 /*}*/
 /*@media (min-width: 768px) {*/
-    /*.presented {*/
-        /*width:400px;*/
-    /*}*/
+/*.presented {*/
+/*width:400px;*/
+/*}*/
 
 /*}*/
 .main-wedding {
-
 }
 
 
@@ -241,6 +245,7 @@ body {
         padding-left: 40px;
     }
 }
+
 .main .page-header {
     margin-top: 0;
 }
@@ -254,16 +259,19 @@ body {
     margin-bottom: 30px;
     text-align: center;
 }
-.placeholders h4 {
-    margin-bottom: 0;
-}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
 .placeholder {
     margin-bottom: 20px;
 }
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
-}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }
 
 /*
 #countdown {
@@ -277,12 +285,10 @@ body {
 }*/
 
 .attendingRadio {
-
 }
 
 
 .rsvp-container {
-
     border-radius: 10px;
     border-style: solid;
     border-width: 2px;
@@ -301,24 +307,36 @@ body {
     margin-top: 100px;
     font-family: sans-serif;
     font-weight: 100;
-    padding:10px 10px 10px 25px;
-
+    padding: 10px 10px 10px 25px;
 }
-.rsvp-select{
-    cursor:pointer; 
-    border-bottom:1px solid;
+
+.rsvp-select {
+    cursor: pointer;
+    border-bottom: 1px solid;
     background-color: white;
 }
+
 .rsvp-select-element:hover {
-    background-color:#f2f2f2;
+    background-color: #f2f2f2;
 }
+
 .memberEntry {
-    margin-top:12px;
+    margin-top: 12px;
 }
 
 .guest-name {
-    max-width:100%;
+    max-width: 100%;
 }
+
 .hovered {
-    background-color:#c7c7c7;
+    background-color: #c7c7c7;
+}
+
+.centeredImg {
+    margin-right: auto;
+    margin-left: auto;
+    height: 95%;
+    max-height: 400px;
+    max-width: 500px;
+    display: block;
 }
