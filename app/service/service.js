@@ -8,7 +8,7 @@ angular.module('myApp.service', [])
     var _getAllFamilies = function () {
         var req = {
             method: 'GET',
-            url: constants.config.apiBase + '/family/'
+            url: constants.config.apiBase + '/family/' + constants.config.weddingId + "/"
 
         };
         return $http(req);
@@ -16,7 +16,7 @@ angular.module('myApp.service', [])
     var _getAllGuests = function (password) {
         var req = {
             method: 'GET',
-            url: constants.config.apiBase + '/admin/guests/',
+            url: constants.config.apiBase + '/admin/' + constants.config.weddingId + '/guests/',
             headers: {
                 'adminPass': password
             },
@@ -26,7 +26,7 @@ angular.module('myApp.service', [])
     var _doLogin = function (password) {
         var req = {
             method: 'GET',
-            url: constants.config.apiBase + '/admin/login/',
+            url: constants.config.apiBase + '/admin/' + constants.config.weddingId + '/login/',
             headers: {
                 'adminPass': password
             },
@@ -37,7 +37,7 @@ angular.module('myApp.service', [])
     var _submitGuests = function (requestData) {
         var req = {
             method: 'POST',
-            url: constants.config.apiBase + '/rsvp/updateList',
+            url: constants.config.apiBase + '/rsvp/' + constants.config.weddingId + '/updateList',
             data: requestData
 
         };
