@@ -33,7 +33,30 @@ angular.module('myApp.service', [])
         };
         return $http(req);
     };
+    var _deleteGuest = function (password, id) {
+        var req = {
+            method: 'DELETE',
+            url: constants.config.apiBase + '/admin/' + constants.config.weddingId + '/guests/' + id,
+            headers: {
+                'adminPass': password
+            },
 
+        };
+        return $http(req);
+    }
+
+    var _addFamily = function (password, family) {
+        var req = {
+            method: 'POST',
+            url: constants.config.apiBase + '/admin/' + constants.config.weddingId + '/family/',
+            data: family,
+            headers: {
+                'adminPass': password
+            },
+
+        };
+        return $http(req);
+    }
     var _submitGuests = function (requestData) {
         var req = {
             method: 'POST',
@@ -93,6 +116,8 @@ angular.module('myApp.service', [])
         submitGuests: _submitGuests,
         getPhotos: _getPhotos,
         getAllGuests: _getAllGuests,
+        deleteGuest: _deleteGuest,
+        addFamily: _addFamily,
         doLogin: _doLogin
     }
 }]);
