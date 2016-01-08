@@ -182,9 +182,9 @@ body {
     max-width: 800px;
     min-width: 300px;
     opacity: .8;
-    height: 350px;
+   /* height: 350px;
     line-height: 350px;
-    text-align: center;
+   */ text-align: center;
     vertical-align: middle;
     font-size: 36px;
     margin-left: auto;
