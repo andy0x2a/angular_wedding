@@ -168,7 +168,10 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         modalGuestMessges.push($scope.guest.name + " is " + $scope.guest.status);
 
         angular.forEach($scope.guest.members, function (member) {
-            modalGuestMessges.push(member.name + " is " + member.status);
+            if (typeof(member.name ) !=="undefined") {
+            modalGuestMessges.push(member.name + " is " + member.status);    
+            }
+            
         });
         //window.confirm(message);
         $scope.modalGuestMessges = modalGuestMessges;
@@ -180,7 +183,9 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         allMembersToSubmit.push($scope.guest);
 
         angular.forEach($scope.guest.members, function (member) {
+            if (typeof(member.name ) !=="undefined") {
             allMembersToSubmit.push(member);
+            }
         });
 
       
@@ -219,7 +224,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
         };
         angular.forEach(guest.members, function (member) {
             console.log(member.name + " " + member.status);
-            if (!isValidAttending(member.status)) {
+            if ( typeof(member.name) !=="undefined" && !isValidAttending(member.status)) {
                 isValid = false;
             }
         });
