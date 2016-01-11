@@ -26,17 +26,21 @@
             <table ng-hide="showAddFamilyForm">
                 <thead>
                     <tr>
+                     <th>
+                            ID  <i class="glyphicon glyphicon-filter" style="cursor:pointer" ng-click="doFilter('id')"> </i> 
+                        </th>
+                            
                         <th>
-                            Name
+                            Name  <i class="glyphicon glyphicon-filter" style="cursor:pointer" ng-click="doFilter('name')"> </i> 
                         </th>
                             
 
                         <th>
-                            Status
+                            Status <i class="glyphicon glyphicon-filter" style="cursor:pointer" ng-click="doFilter('status')"> </i> 
                         </th>
 
                         <th>
-                            Family
+                            Family <i class="glyphicon glyphicon-filter" style="cursor:pointer" ng-click="doFilter('family')"> </i> 
                         </th>
 
                         <th>
@@ -45,7 +49,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  ng-repeat="guest in guests" class="trow"  style="margin-bottom:5px">
+                    <tr  ng-repeat="guest in guests | orderBy: orderExpr.order" class="trow"  style="margin-bottom:5px">
+                    <td>
+                            <span> {{guest.id}} </span>
+                        </td>
                         <td>
                             <input ng-model="guest.name" name="guestName">
                         </td>

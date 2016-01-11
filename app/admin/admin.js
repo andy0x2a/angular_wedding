@@ -27,6 +27,7 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
     $scope.getFamilies = function () {
         $scope.isLoading = true;
         $scope.guests = [];
+          $scope.orderExpr = {"order":"id", "desc":false, "type":"id"};
         apiService.getAllFamilies($scope.adminPassword).then(function (data) {
             $scope.families = data.data;
             angular.forEach($scope.families, function (family, index) {
@@ -56,6 +57,25 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
             $scope.showMessage = true;
         });
     }
+    $scope.doFilter=function(filterName) {
+        if ($scope.orderExpr.type ==filterName) {
+            $scope.orderExpr.desc = !$scope.orderExpr.desc;
+            if($scope.orderExpr.desc) {
+                $scope.orderExpr.order = "-" + $scope.orderExpr.type;
+
+            } else {
+                $scope.orderExpr.order = $scope.orderExpr.type;                
+            }
+        } else {
+            $scope.orderExpr.type = filterName;
+            $scope.orderExpr.desc = false;
+            $scope.orderExpr.order = filterName;
+
+        }
+
+        
+
+    };
 
     $scope.deleteGuest = function (guest) {
         $scope.isLoading = true;
