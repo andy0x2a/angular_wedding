@@ -15,6 +15,11 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
     $scope.showGuests = true;
     $scope.isLoading = false;
     $scope.familySelectData = [];
+    $scope.stats = {
+        'yes':0,
+        'no': 0,
+        'noReply':0
+    }
     window.scrollTo(0, 0);
     //$scope.getGuests = function () {
 
@@ -24,6 +29,15 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
     //    });
     //}
 
+$scope.addStat = function(guest) {
+    if (guest.status ==="attending") {
+        $scope.stats.yes++;
+    } else if (guest.status ==="declined") {
+        $scope.stats.no++;
+    } else {
+        $scope.stats.noReply++;
+    }
+}
     $scope.getFamilies = function () {
         $scope.isLoading = true;
         $scope.guests = [];
@@ -36,6 +50,7 @@ angular.module('myApp.admin', ['ngRoute', 'myApp.service'])
                     guest.familyId = family.id;
                     guest.familyName = family.name;
                     $scope.guests.push(guest);
+                    $scope.addStat(guest);
                 });
             });
         }).finally(function () {

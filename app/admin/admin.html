@@ -21,8 +21,27 @@
             <input name="pwd" type="password" ng-model="adminPassword">
             <button class="btn btn-primary" ng-click="login()"> Login</button>
         </div>
-        
         <div class="a-table2" ng-show="isAuthorized && showGuests"  ng-disabled="!isAuthorized">
+
+            <div >
+                <div>
+
+                    <label for="yesl"> Attending:</label>
+                    <span name="yesl"> {{stats.yes}}</span> 
+                </div>
+                <div>
+
+                    <label for="yesl"> Declined:</label>
+                    <span name="yesl"> {{stats.no}}</span> 
+                </div>
+                <div>
+
+                    <label for="yesl"> No Response:</label>
+                    <span name="yesl"> {{stats.noReply}}</span> 
+                </div>
+
+
+        </div>
             <table ng-hide="showAddFamilyForm">
                 <thead>
                     <tr>
