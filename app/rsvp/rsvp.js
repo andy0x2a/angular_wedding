@@ -15,6 +15,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
     $scope.names = [];
     $scope.searchCtr = 0;
     $scope.loadAllFamilies = function () {
+           $scope.isLoading = true;
         var task = api.getAllFamilies();
         task.then(function (data) {
 
@@ -24,6 +25,7 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
                 angular.forEach(family.members, function (member) {
                     member.familyId = family.id;
                     member.familyName = family.name;
+                 
                     $scope.names.push(member);
                 })
 
@@ -31,7 +33,9 @@ angular.module('myApp.rsvp', ['ngRoute', 'myApp.startsWith', 'myApp.service'])
 
         }, function (error) {
             alert("something went wrong, please reload the page and try again. If this problem persists, contact Andy");
-        });
+        }).finally(function() {
+               $scope.isLoading = false;
+        }) ;
     }
     $scope.loadAllFamilies();
 

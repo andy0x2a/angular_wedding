@@ -1,4 +1,15 @@
 <div class="">
+<div class="loadingcontainer" id="spinner" ng-show="isLoading">
+        <div class="loadingframe">
+            <i>
+                Loading...
+            </i>
+        </div>
+        
+    </div>
+  <div>
+
+
     <div class="debugInfo" ng-hide="true">
 
         guestFound: {{guestFound}}<br />
@@ -107,6 +118,10 @@
 
                     </div>
                 </div>
+            </div>
+            <div id="commentdiv"  ng-hide="!guestFound" >
+                <label for="comment"> Comment: </label><br>
+                <textarea rows="4" cols="25"ng-model="guest.comment" name="comment" id="comment" />
             </div>
             <div>
                 <div class="">
